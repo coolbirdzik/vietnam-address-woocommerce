@@ -1,0 +1,102 @@
+name: Build & Release
+
+on:
+  push:
+    tags:
+      - 'v*'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'frontend'
+
+      - name: Install Node.js dependencies
+        run: |
+          cd frontend
+          npm install
+
+      - name: Build plugin
+        run: |
+          chmod +x build.sh
+          ./build.sh
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: plugin-zip
+          path: dist/vietnam-address-woocommerce-*.zip
+
+  release:
+    needs: build
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+      - name: Download artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: plugin-zip
+
+      - name: Get version from tag
+        id: version
+        run: echo "VERSION=${GITHUB_REF#refs/tags/v}" >> $GITHUB_OUTPUT
+
+      - name: Generate release notes
+        id: release-notes
+        run: |
+          # Get previous tag
+          PREV_TAG=$(git describe --tags --abbrev=0 HEAD^ 2>/dev/null || echo "")
+
+          if [ -n "$PREV_TAG" ]; then
+            COMMITS=$(git log --pretty=format:"- %s (%h)" $PREV_TAG..HEAD --no-merges)
+          else
+            # First release - get all commits
+            COMMITS=$(git log --pretty=format:"- %s (%h)" --no-merges | head -20)
+          fi
+
+          # Get plugin description from readme
+          DESCRIPTION=$(sed -n '/^== Description ==/,/^== /p' readme.txt | sed '1d;$d' | head -20)
+
+          # Build release notes
+          RELEASE_NOTES="# Changes in v${{ steps.version.outputs.VERSION }}"
+
+          if [ -n "$COMMITS" ]; then
+            RELEASE_NOTES="${RELEASE_NOTES}
+
+## Commits
+${COMMITS}"
+          fi
+
+          if [ -n "$DESCRIPTION" ]; then
+            RELEASE_NOTES="${RELEASE_NOTES}
+
+## What's New
+${DESCRIPTION}"
+          fi
+
+          echo "release_notes<<EOF" >> $GITHUB_OUTPUT
+          echo "$RELEASE_NOTES" >> $GITHUB_OUTPUT
+          echo "EOF" >> $GITHUB_OUTPUT
+
+      - name: Create Release
+        uses: softprops/action-gh-release@v1
+        with:
+          tag_name: ${{ github.ref_name }}
+          name: Vietnam Address WooCommerce v${{ steps.version.outputs.VERSION }}
+          body: ${{ steps.release-notes.outputs.release_notes }}
+          draft: false
+          prerelease: false
+          generate_release_notes: false
+          files: vietnam-address-woocommerce-*.zip
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
