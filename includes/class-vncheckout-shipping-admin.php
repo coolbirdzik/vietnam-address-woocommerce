@@ -72,8 +72,8 @@ class VNCheckout_Shipping_Admin
     {
         add_submenu_page(
             'woocommerce',
-            __('Vietnam Shipping Rates', 'vietnam-address-woo'),
-            __('Shipping Rates', 'vietnam-address-woo'),
+            __('Vietnam Shipping Rates', 'coolbird-vietnam-address-for-woocommerce'),
+            __('Shipping Rates', 'coolbird-vietnam-address-for-woocommerce'),
             'manage_woocommerce',
             'vncheckout-shipping-rates',
             array($this, 'render_admin_page')
@@ -110,7 +110,7 @@ class VNCheckout_Shipping_Admin
                 }
 
                 // Localize script
-                wp_localize_script('vncheckout-admin-shipping', 'woocommerce_district_admin', array(
+                wp_localize_script('vncheckout-admin-shipping', 'coolbirdvik_district_admin', array(
                     'ajaxurl' => admin_url('admin-ajax.php'),
                     'nonce' => wp_create_nonce('vncheckout_shipping_admin'),
                     'provinces' => $this->get_provinces_for_js(),
@@ -173,6 +173,7 @@ class VNCheckout_Shipping_Admin
             wp_send_json_error(array('message' => 'Missing parameters'));
         }
 
+        // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching, PluginCheck.Security.DirectDB.UnescapedDBParameter -- Admin AJAX: read-only SELECT on plugin-owned table; no caching needed. $table_sql is already backtick-wrapped and esc_sql()-escaped.
         $rates = $wpdb->get_results($wpdb->prepare(
             "SELECT * FROM {$table_sql} WHERE location_type = %s AND location_code = %s ORDER BY priority DESC",
             $location_type,
@@ -223,14 +224,17 @@ class VNCheckout_Shipping_Admin
 
         if (isset($rate_data['id']) && $rate_data['id']) {
             // Update existing rate
+            // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching -- Admin AJAX: intentionally direct UPDATE on plugin-owned table; no caching needed.
             $wpdb->update($table_name, $data, array('id' => intval($rate_data['id'])));
             $rate_id = intval($rate_data['id']);
         } else {
             // Insert new rate
+            // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching -- Admin AJAX: intentionally direct INSERT on plugin-owned table; no caching needed.
             $wpdb->insert($table_name, $data);
             $rate_id = $wpdb->insert_id;
         }
 
+        // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching, PluginCheck.Security.DirectDB.UnescapedDBParameter -- Admin AJAX: read-only SELECT to fetch saved rate; $table_sql is backtick-wrapped and esc_sql()-escaped.
         $rate = $wpdb->get_row($wpdb->prepare("SELECT * FROM {$table_sql} WHERE id = %d", $rate_id), ARRAY_A);
         $rate['weight_tiers'] = json_decode($rate['weight_tiers'], true);
         $rate['order_total_rules'] = json_decode($rate['order_total_rules'], true);
@@ -259,6 +263,7 @@ class VNCheckout_Shipping_Admin
         global $wpdb;
         $table_name = $this->get_shipping_rates_table_name();
 
+        // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching -- Admin AJAX: intentionally direct DELETE on plugin-owned table; no caching needed.
         $wpdb->delete($table_name, array('id' => $id));
 
         wp_send_json_success();
@@ -311,6 +316,7 @@ class VNCheckout_Shipping_Admin
                     'updated_at' => current_time('mysql'),
                 );
 
+                // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching -- Admin AJAX bulk import: intentionally direct INSERT on plugin-owned table; no caching needed.
                 $wpdb->insert($table_name, $rate_data);
                 $success++;
             } catch (Exception $e) {
@@ -346,6 +352,7 @@ class VNCheckout_Shipping_Admin
         $table_name = $this->get_shipping_rates_table_name();
         $table_sql = $this->get_shipping_rates_table_sql();
 
+        // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching, PluginCheck.Security.DirectDB.UnescapedDBParameter -- Admin AJAX export: read-only SELECT; $table_sql is backtick-wrapped and esc_sql()-escaped.
         $rates = $wpdb->get_results("SELECT * FROM {$table_sql} ORDER BY location_type, location_code", ARRAY_A);
 
         header('Content-Type: text/csv; charset=utf-8');

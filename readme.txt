@@ -1,6 +1,6 @@
-=== Vietnam Address Woo ===
-Contributors: coolbirdzik
-Donate link: https://github.com/coolbirdzik/vietnam-address-woo
+=== Coolbird Vietnam Address for WooCommerce ===
+Contributors: coolbird
+Donate link: https://github.com/coolbirdzik/coolbird-vietnam-address-for-woocommerce
 Tags: woocommerce, vietnam, checkout, address
 Requires at least: 5.0
 Tested up to: 6.9
@@ -56,6 +56,6 @@ No. Data is stored in PHP arrays, no database queries.
 
 == Additional Information ==
 
-- GitHub: https://github.com/coolbirdzik/vietnam-address-woo
+- GitHub: https://github.com/coolbirdzik/coolbird-vietnam-address-for-woocommerce
 - Developed by: Nguyen Tan Hung
 - Does not send customer data externally

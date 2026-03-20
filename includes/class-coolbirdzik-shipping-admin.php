@@ -47,8 +47,8 @@ class CoolBirdZik_Shipping_Admin
     {
         add_submenu_page(
             'woocommerce',
-            __('Vietnam Shipping Rates', 'vietnam-address-woo'),
-            __('Shipping Rates', 'vietnam-address-woo'),
+            __('Vietnam Shipping Rates', 'coolbird-vietnam-address-for-woocommerce'),
+            __('Shipping Rates', 'coolbird-vietnam-address-for-woocommerce'),
             'manage_woocommerce',
             'coolbirdzik-shipping-rates',
             array($this, 'render_admin_page')
@@ -67,7 +67,7 @@ class CoolBirdZik_Shipping_Admin
             // Show a friendly message instead of a blank page
             add_action('admin_notices', function () {
                 echo '<div class="notice notice-error"><p>'
-                    . esc_html__('Vietnam Shipping Rates: frontend assets not found. Run `npm run build` inside the frontend/ directory.', 'vietnam-address-woo')
+                    . esc_html__('Vietnam Shipping Rates: frontend assets not found. Run `npm run build` inside the frontend/ directory.', 'coolbird-vietnam-address-for-woocommerce')
                     . '</p></div>';
             });
             return;
@@ -94,7 +94,7 @@ class CoolBirdZik_Shipping_Admin
             );
         }
 
-        wp_localize_script('coolbirdzik-admin-shipping', 'woocommerce_district_admin', array(
+        wp_localize_script('coolbirdzik-admin-shipping', 'coolbirdvik_district_admin', array(
             'ajaxurl'   => admin_url('admin-ajax.php'),
             'nonce'     => wp_create_nonce('coolbirdzik_shipping_admin'),
             'provinces' => $this->get_provinces_for_js(),
@@ -188,6 +188,7 @@ class CoolBirdZik_Shipping_Admin
             wp_send_json_error(array('message' => 'Missing parameters'));
         }
 
+        // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching, PluginCheck.Security.DirectDB.UnescapedDBParameter -- Admin AJAX: read-only SELECT on plugin-owned table; no caching needed. $this->rates_table is esc_sql()-escaped via constructor.
         $rates = $wpdb->get_results($wpdb->prepare(
             "SELECT * FROM {$this->rates_table}
              WHERE location_type = %s AND location_code = %s
@@ -238,13 +239,16 @@ class CoolBirdZik_Shipping_Admin
 
         $id = isset($rate_data['id']) ? intval($rate_data['id']) : 0;
         if ($id) {
+            // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching -- Admin AJAX: intentionally direct UPDATE on plugin-owned table; no caching needed.
             $wpdb->update($this->rates_table, $data, array('id' => $id));
             $rate_id = $id;
         } else {
+            // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching -- Admin AJAX: intentionally direct INSERT on plugin-owned table; no caching needed.
             $wpdb->insert($this->rates_table, $data);
             $rate_id = $wpdb->insert_id;
         }
 
+        // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching, PluginCheck.Security.DirectDB.UnescapedDBParameter -- Admin AJAX: read-only SELECT to fetch saved rate; table name is plugin-owned and esc_sql()-escaped.
         $rate = $wpdb->get_row(
             $wpdb->prepare("SELECT * FROM {$this->rates_table} WHERE id = %d", $rate_id),
             ARRAY_A
@@ -269,6 +273,7 @@ class CoolBirdZik_Shipping_Admin
             wp_send_json_error(array('message' => 'Invalid ID'));
         }
 
+        // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching -- Admin AJAX: intentionally direct DELETE on plugin-owned table; no caching needed.
         $wpdb->delete($this->rates_table, array('id' => $id));
         wp_send_json_success();
     }
@@ -319,6 +324,7 @@ class CoolBirdZik_Shipping_Admin
                 'updated_at'       => current_time('mysql'),
             );
 
+            // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching -- Admin AJAX bulk import: intentionally direct INSERT on plugin-owned table; no caching needed.
             $result = $wpdb->insert($this->rates_table, $data);
             if ($result === false) {
                 $failed++;
@@ -344,6 +350,7 @@ class CoolBirdZik_Shipping_Admin
         }
 
         global $wpdb;
+        // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching, PluginCheck.Security.DirectDB.UnescapedDBParameter -- Admin AJAX export: read-only SELECT; table name is plugin-owned and esc_sql()-escaped.
         $rates = $wpdb->get_results(
             "SELECT * FROM {$this->rates_table} ORDER BY location_type, location_code",
             ARRAY_A
@@ -496,6 +503,7 @@ class CoolBirdZik_Shipping_Admin
             );
 
             // Upsert: update existing province rate if one exists, otherwise insert.
+            // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching, PluginCheck.Security.DirectDB.UnescapedDBParameter -- Admin AJAX bulk upsert: existence check SELECT before INSERT/UPDATE; table name is plugin-owned and esc_sql()-escaped.
             $existing_id = $wpdb->get_var($wpdb->prepare(
                 "SELECT id FROM {$this->rates_table}
                  WHERE location_type = 'province' AND location_code = %s
@@ -504,9 +512,11 @@ class CoolBirdZik_Shipping_Admin
             ));
 
             if ($existing_id) {
+                // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching, PluginCheck.Security.DirectDB.UnescapedDBParameter -- Admin AJAX bulk upsert: intentionally direct UPDATE; table name is plugin-owned and esc_sql()-escaped.
                 $wpdb->update($this->rates_table, $data, array('id' => intval($existing_id)));
                 $updated++;
             } else {
+                // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching, PluginCheck.Security.DirectDB.UnescapedDBParameter -- Admin AJAX bulk upsert: intentionally direct INSERT; table name is plugin-owned and esc_sql()-escaped.
                 $wpdb->insert($this->rates_table, $data);
                 $inserted++;
             }

@@ -28,10 +28,10 @@ function vncheckout_shipping_method_init()
         {
             $this->id                 = 'vncheckout_shipping';
             $this->instance_id        = absint($instance_id);
-            $this->method_title       = __('Vietnam Shipping Calculator', 'vietnam-address-woo');
+            $this->method_title       = __('Vietnam Shipping Calculator', 'coolbird-vietnam-address-for-woocommerce');
             $this->method_description = __(
                 'Shipping fees based on Vietnam province/district/ward, order total, and weight.',
-                'vietnam-address-woo'
+                'coolbird-vietnam-address-for-woocommerce'
             );
             $this->supports = array('shipping-zones', 'instance-settings');
 
@@ -58,31 +58,31 @@ function vncheckout_shipping_method_init()
 
             $this->instance_form_fields = array(
                 'enabled' => array(
-                    'title'   => __('Enable/Disable', 'vietnam-address-woo'),
+                    'title'   => __('Enable/Disable', 'coolbird-vietnam-address-for-woocommerce'),
                     'type'    => 'checkbox',
-                    'label'   => __('Enable this shipping method', 'vietnam-address-woo'),
+                    'label'   => __('Enable this shipping method', 'coolbird-vietnam-address-for-woocommerce'),
                     'default' => 'yes',
                 ),
                 'title' => array(
-                    'title'       => __('Method Title', 'vietnam-address-woo'),
+                    'title'       => __('Method Title', 'coolbird-vietnam-address-for-woocommerce'),
                     'type'        => 'text',
-                    'description' => __('Title displayed during checkout.', 'vietnam-address-woo'),
-                    'default'     => __('Vietnam Shipping', 'vietnam-address-woo'),
+                    'description' => __('Title displayed during checkout.', 'coolbird-vietnam-address-for-woocommerce'),
+                    'default'     => __('Vietnam Shipping', 'coolbird-vietnam-address-for-woocommerce'),
                     'desc_tip'    => true,
                 ),
                 'default_rate' => array(
-                    'title'       => __('Default Shipping Rate', 'vietnam-address-woo'),
+                    'title'       => __('Default Shipping Rate', 'coolbird-vietnam-address-for-woocommerce'),
                     'type'        => 'text',
-                    'description' => __('Fallback rate (VND) when no location rule matches.', 'vietnam-address-woo'),
+                    'description' => __('Fallback rate (VND) when no location rule matches.', 'coolbird-vietnam-address-for-woocommerce'),
                     'default'     => '30000',
                     'desc_tip'    => true,
                 ),
                 'manage_rates_link' => array(
-                    'title'       => __('Manage Rates', 'vietnam-address-woo'),
+                    'title'       => __('Manage Rates', 'coolbird-vietnam-address-for-woocommerce'),
                     'type'        => 'title',
                     'description' => sprintf(
                         /* translators: %s: URL to the rate manager page */
-                        __('Configure shipping rates by region, province, district, and ward on the <a href="%s" style="font-weight:600">Shipping Rates</a> page (Woo → Shipping Rates).', 'vietnam-address-woo'),
+                        __('Configure shipping rates by region, province, district, and ward on the <a href="%s" style="font-weight:600">Shipping Rates</a> page (Woo → Shipping Rates).', 'coolbird-vietnam-address-for-woocommerce'),
                         esc_url($rates_url)
                     ),
                 ),
@@ -172,9 +172,10 @@ function vncheckout_shipping_method_init()
             global $wpdb;
             $table = $wpdb->prefix . 'coolbirdzik_shipping_rates';
 
+            // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching, PluginCheck.Security.DirectDB.UnescapedDBParameter -- Read-only SELECT on plugin-owned rates table; table name is plugin-controlled and escaped with esc_sql().
             $row = $wpdb->get_row(
                 $wpdb->prepare(
-                    "SELECT * FROM {$table}
+                    "SELECT * FROM " . esc_sql($table) . "
                      WHERE location_type = %s AND location_code = %s
                      ORDER BY priority DESC, id DESC
                      LIMIT 1",

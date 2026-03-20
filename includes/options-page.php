@@ -1,13 +1,14 @@
 <?php
-if ( ! defined( 'ABSPATH' ) ) {
+if (! defined('ABSPATH')) {
     exit;
 }
 ?>
 <div class="wrap vncheckout-settings-wrap vncheckout-modern-wrap">
     <div class="vncheckout-header">
-        <h1><?php esc_html_e('Vietnam Address Woo', 'vietnam-address-woo'); ?></h1>
+        <h1><?php esc_html_e('Coolbird Vietnam Address for WooCommerce', 'coolbird-vietnam-address-for-woocommerce'); ?>
+        </h1>
         <p class="vncheckout-header-desc">
-            <?php esc_html_e('Fine-tune how Vietnamese addresses, currency conversion and advanced checkout helpers behave in your store.', 'vietnam-address-woo'); ?>
+            <?php esc_html_e('Fine-tune how Vietnamese addresses, currency conversion and advanced checkout helpers behave in your store.', 'coolbird-vietnam-address-for-woocommerce'); ?>
         </p>
     </div>
 
@@ -22,19 +23,19 @@ if ( ! defined( 'ABSPATH' ) ) {
         <nav class="vncheckout-tabs-nav">
             <a href="#tab-address" class="vncheckout-tab active" data-tab="address">
                 <span class="vncheckout-tab-icon">📍</span>
-                <?php esc_html_e('Address', 'vietnam-address-woo'); ?>
+                <?php esc_html_e('Address', 'coolbird-vietnam-address-for-woocommerce'); ?>
             </a>
             <a href="#tab-currency" class="vncheckout-tab" data-tab="currency">
                 <span class="vncheckout-tab-icon">💰</span>
-                <?php esc_html_e('Currency & Shipping', 'vietnam-address-woo'); ?>
+                <?php esc_html_e('Currency & Shipping', 'coolbird-vietnam-address-for-woocommerce'); ?>
             </a>
             <a href="#tab-checkout" class="vncheckout-tab" data-tab="checkout">
                 <span class="vncheckout-tab-icon">🛒</span>
-                <?php esc_html_e('Checkout Fields', 'vietnam-address-woo'); ?>
+                <?php esc_html_e('Checkout Fields', 'coolbird-vietnam-address-for-woocommerce'); ?>
             </a>
             <a href="#tab-orders" class="vncheckout-tab" data-tab="orders">
                 <span class="vncheckout-tab-icon">📦</span>
-                <?php esc_html_e('Order Management', 'vietnam-address-woo'); ?>
+                <?php esc_html_e('Order Management', 'coolbird-vietnam-address-for-woocommerce'); ?>
             </a>
         </nav>
 
@@ -91,7 +92,7 @@ if ( ! defined( 'ABSPATH' ) ) {
             $current_options = $this->sanitize_options($current_options);
             update_option($option_name, $current_options);
             $flra_options = wp_parse_args($current_options, $this->_defaultOptions);
-            echo '<div class="notice notice-success is-dismissible"><p>' . __('Settings saved!', 'vietnam-address-woo') . '</p></div>';
+            echo '<div class="notice notice-success is-dismissible"><p>' . __('Settings saved!', 'coolbird-vietnam-address-for-woocommerce') . '</p></div>';
         }
         ?>
         <form method="post" action="" novalidate="novalidate" class="vncheckout-settings-form">
@@ -102,25 +103,30 @@ if ( ! defined( 'ABSPATH' ) ) {
             <div id="tab-address" class="vncheckout-tab-content active">
                 <div class="vncheckout-card">
                     <div class="vncheckout-card-header">
-                        <h2><?php esc_html_e('Vietnam Address Layout', 'vietnam-address-woo'); ?></h2>
-                        <p><?php esc_html_e('Choose how provinces, districts and wards are shown on checkout and account pages.', 'vietnam-address-woo'); ?></p>
+                        <h2><?php esc_html_e('Vietnam Address Layout', 'coolbird-vietnam-address-for-woocommerce'); ?>
+                        </h2>
+                        <p><?php esc_html_e('Choose how provinces, districts and wards are shown on checkout and account pages.', 'coolbird-vietnam-address-for-woocommerce'); ?>
+                        </p>
                     </div>
                     <div class="vncheckout-card-body">
                         <div class="vncheckout-field">
-                            <label for="address_schema"><?php _e('Address Format', 'vietnam-address-woo'); ?></label>
+                            <label
+                                for="address_schema"><?php _e('Address Format', 'coolbird-vietnam-address-for-woocommerce'); ?></label>
                             <div class="vncheckout-radio-group">
                                 <label class="vncheckout-radio">
-                                    <input type="radio" name="<?php echo $this->_optionName ?>[address_schema]" value="old" <?php checked('old', $flra_options['address_schema']); ?> />
+                                    <input type="radio" name="<?php echo $this->_optionName ?>[address_schema]"
+                                        value="old" <?php checked('old', $flra_options['address_schema']); ?> />
                                     <span class="vncheckout-radio-content">
-                                        <strong><?php _e('Old Format', 'vietnam-address-woo'); ?></strong>
-                                        <small><?php _e('Province/City → District → Ward/Commune', 'vietnam-address-woo'); ?></small>
+                                        <strong><?php _e('Old Format', 'coolbird-vietnam-address-for-woocommerce'); ?></strong>
+                                        <small><?php _e('Province/City → District → Ward/Commune', 'coolbird-vietnam-address-for-woocommerce'); ?></small>
                                     </span>
                                 </label>
                                 <label class="vncheckout-radio">
-                                    <input type="radio" name="<?php echo $this->_optionName ?>[address_schema]" value="new" <?php checked('new', $flra_options['address_schema']); ?> />
+                                    <input type="radio" name="<?php echo $this->_optionName ?>[address_schema]"
+                                        value="new" <?php checked('new', $flra_options['address_schema']); ?> />
                                     <span class="vncheckout-radio-content">
-                                        <strong><?php _e('New Format', 'vietnam-address-woo'); ?></strong>
-                                        <small><?php _e('Province/City → Ward/Commune (District hidden)', 'vietnam-address-woo'); ?></small>
+                                        <strong><?php _e('New Format', 'coolbird-vietnam-address-for-woocommerce'); ?></strong>
+                                        <small><?php _e('Province/City → Ward/Commune (District hidden)', 'coolbird-vietnam-address-for-woocommerce'); ?></small>
                                     </span>
                                 </label>
                             </div>
@@ -128,22 +134,26 @@ if ( ! defined( 'ABSPATH' ) ) {
 
                         <div class="vncheckout-field">
                             <label class="vncheckout-toggle">
-                                <input type="checkbox" name="<?php echo $this->_optionName ?>[active_village]" <?php checked('1', $flra_options['active_village']); ?> value="1" id="active_village" />
+                                <input type="checkbox" name="<?php echo $this->_optionName ?>[active_village]"
+                                    <?php checked('1', $flra_options['active_village']); ?> value="1"
+                                    id="active_village" />
                                 <span class="vncheckout-toggle-slider"></span>
                                 <span class="vncheckout-toggle-label">
-                                    <strong><?php _e('Hide Ward/Commune Field', 'vietnam-address-woo'); ?></strong>
-                                    <small><?php _e('Hide Ward/Commune/Town field in checkout form. Default is shown.', 'vietnam-address-woo'); ?></small>
+                                    <strong><?php _e('Hide Ward/Commune Field', 'coolbird-vietnam-address-for-woocommerce'); ?></strong>
+                                    <small><?php _e('Hide Ward/Commune/Town field in checkout form. Default is shown.', 'coolbird-vietnam-address-for-woocommerce'); ?></small>
                                 </span>
                             </label>
                         </div>
 
                         <div class="vncheckout-field">
                             <label class="vncheckout-toggle">
-                                <input type="checkbox" name="<?php echo $this->_optionName ?>[required_village]" <?php checked('1', $flra_options['required_village']); ?> value="1" id="required_village" />
+                                <input type="checkbox" name="<?php echo $this->_optionName ?>[required_village]"
+                                    <?php checked('1', $flra_options['required_village']); ?> value="1"
+                                    id="required_village" />
                                 <span class="vncheckout-toggle-slider"></span>
                                 <span class="vncheckout-toggle-label">
-                                    <strong><?php _e('Ward/Commune is NOT Required', 'vietnam-address-woo'); ?></strong>
-                                    <small><?php _e('When Ward/Commune field is shown, it is optional.', 'vietnam-address-woo'); ?></small>
+                                    <strong><?php _e('Ward/Commune is NOT Required', 'coolbird-vietnam-address-for-woocommerce'); ?></strong>
+                                    <small><?php _e('When Ward/Commune field is shown, it is optional.', 'coolbird-vietnam-address-for-woocommerce'); ?></small>
                                 </span>
                             </label>
                         </div>
@@ -155,52 +165,62 @@ if ( ! defined( 'ABSPATH' ) ) {
             <div id="tab-currency" class="vncheckout-tab-content">
                 <div class="vncheckout-card">
                     <div class="vncheckout-card-header">
-                        <h2><?php esc_html_e('Currency & Conversion', 'vietnam-address-woo'); ?></h2>
-                        <p><?php esc_html_e('Control currency formatting, volumetric weight and VNĐ ↔ foreign currency conversion.', 'vietnam-address-woo'); ?></p>
+                        <h2><?php esc_html_e('Currency & Conversion', 'coolbird-vietnam-address-for-woocommerce'); ?>
+                        </h2>
+                        <p><?php esc_html_e('Control currency formatting, volumetric weight and VNĐ ↔ foreign currency conversion.', 'coolbird-vietnam-address-for-woocommerce'); ?>
+                        </p>
                     </div>
                     <div class="vncheckout-card-body">
                         <div class="vncheckout-field">
                             <label class="vncheckout-toggle">
-                                <input type="checkbox" name="<?php echo $this->_optionName ?>[to_vnd]" <?php checked('1', $flra_options['to_vnd']); ?> value="1" id="to_vnd" />
+                                <input type="checkbox" name="<?php echo $this->_optionName ?>[to_vnd]"
+                                    <?php checked('1', $flra_options['to_vnd']); ?> value="1" id="to_vnd" />
                                 <span class="vncheckout-toggle-slider"></span>
                                 <span class="vncheckout-toggle-label">
-                                    <strong><?php _e('Convert ₫ to VNĐ', 'vietnam-address-woo'); ?></strong>
-                                    <small><?php _e('Allow conversion to VNĐ', 'vietnam-address-woo'); ?></small>
+                                    <strong><?php _e('Convert ₫ to VNĐ', 'coolbird-vietnam-address-for-woocommerce'); ?></strong>
+                                    <small><?php _e('Allow conversion to VNĐ', 'coolbird-vietnam-address-for-woocommerce'); ?></small>
                                 </span>
                             </label>
                         </div>
 
                         <div class="vncheckout-field">
-                            <label for="khoiluong_quydoi"><?php _e('Conversion Quotient', 'vietnam-address-woo'); ?></label>
-                            <input type="number" min="0" name="<?php echo $this->_optionName ?>[khoiluong_quydoi]" value="<?php echo esc_attr($flra_options['khoiluong_quydoi']); ?>" id="khoiluong_quydoi" class="regular-text" />
-                            <small><?php _e('Default by Viettel Post is 6000', 'vietnam-address-woo'); ?></small>
+                            <label
+                                for="khoiluong_quydoi"><?php _e('Conversion Quotient', 'coolbird-vietnam-address-for-woocommerce'); ?></label>
+                            <input type="number" min="0" name="<?php echo $this->_optionName ?>[khoiluong_quydoi]"
+                                value="<?php echo esc_attr($flra_options['khoiluong_quydoi']); ?>" id="khoiluong_quydoi"
+                                class="regular-text" />
+                            <small><?php _e('Default by Viettel Post is 6000', 'coolbird-vietnam-address-for-woocommerce'); ?></small>
                         </div>
                     </div>
                 </div>
 
                 <div class="vncheckout-card">
                     <div class="vncheckout-card-header">
-                        <h2><?php esc_html_e('PayPal Conversion', 'vietnam-address-woo'); ?></h2>
-                        <p><?php esc_html_e('Enable VNĐ to foreign currency conversion to use PayPal.', 'vietnam-address-woo'); ?></p>
+                        <h2><?php esc_html_e('PayPal Conversion', 'coolbird-vietnam-address-for-woocommerce'); ?></h2>
+                        <p><?php esc_html_e('Enable VNĐ to foreign currency conversion to use PayPal.', 'coolbird-vietnam-address-for-woocommerce'); ?>
+                        </p>
                     </div>
                     <div class="vncheckout-card-body">
                         <div class="vncheckout-field">
                             <label class="vncheckout-toggle">
-                                <input type="checkbox" name="<?php echo $this->_optionName ?>[active_vnd2usd]" <?php checked('1', $flra_options['active_vnd2usd']); ?> value="1" />
+                                <input type="checkbox" name="<?php echo $this->_optionName ?>[active_vnd2usd]"
+                                    <?php checked('1', $flra_options['active_vnd2usd']); ?> value="1" />
                                 <span class="vncheckout-toggle-slider"></span>
                                 <span class="vncheckout-toggle-label">
-                                    <strong><?php _e('Enable VNĐ to USD Conversion', 'vietnam-address-woo'); ?></strong>
-                                    <small><?php _e('Enable VNĐ to USD conversion to use PayPal', 'vietnam-address-woo'); ?></small>
+                                    <strong><?php _e('Enable VNĐ to USD Conversion', 'coolbird-vietnam-address-for-woocommerce'); ?></strong>
+                                    <small><?php _e('Enable VNĐ to USD conversion to use PayPal', 'coolbird-vietnam-address-for-woocommerce'); ?></small>
                                 </span>
                             </label>
                         </div>
 
                         <div class="vncheckout-field-row">
                             <div class="vncheckout-field">
-                                <label for="vnd2usd_currency"><?php _e('Target Currency', 'vietnam-address-woo'); ?></label>
-                                <select name="<?php echo $this->_optionName ?>[vnd2usd_currency]" id="vnd2usd_currency" class="regular-text">
+                                <label
+                                    for="vnd2usd_currency"><?php _e('Target Currency', 'coolbird-vietnam-address-for-woocommerce'); ?></label>
+                                <select name="<?php echo $this->_optionName ?>[vnd2usd_currency]" id="vnd2usd_currency"
+                                    class="regular-text">
                                     <?php
-                                    $paypal_supported_currencies = array('AUD','BRL','CAD','MXL','NZD','HKD','SGD','USD','EUR','JPY','TRY','NOK','CZK','DKK','HUF','ILS','MYR','PHP','PLN','SEK','CHF','TWD','THB','GBP','RMB','RUB');
+                                    $paypal_supported_currencies = array('AUD', 'BRL', 'CAD', 'MXL', 'NZD', 'HKD', 'SGD', 'USD', 'EUR', 'JPY', 'TRY', 'NOK', 'CZK', 'DKK', 'HUF', 'ILS', 'MYR', 'PHP', 'PLN', 'SEK', 'CHF', 'TWD', 'THB', 'GBP', 'RMB', 'RUB');
                                     foreach ($paypal_supported_currencies as $currency) {
                                         echo '<option value="' . esc_attr($currency) . '" ' . selected(strtoupper($currency), $flra_options['vnd2usd_currency'], false) . '>' . esc_html($currency) . '</option>';
                                     }
@@ -208,9 +228,12 @@ if ( ! defined( 'ABSPATH' ) ) {
                                 </select>
                             </div>
                             <div class="vncheckout-field">
-                                <label for="vnd_usd_rate"><?php _e('Exchange Rate', 'vietnam-address-woo'); ?></label>
-                                <input type="number" min="0" name="<?php echo $this->_optionName ?>[vnd_usd_rate]" value="<?php echo esc_attr($flra_options['vnd_usd_rate']); ?>" id="vnd_usd_rate" class="regular-text" />
-                                <small><?php _e('Exchange rate from VNĐ', 'vietnam-address-woo'); ?></small>
+                                <label
+                                    for="vnd_usd_rate"><?php _e('Exchange Rate', 'coolbird-vietnam-address-for-woocommerce'); ?></label>
+                                <input type="number" min="0" name="<?php echo $this->_optionName ?>[vnd_usd_rate]"
+                                    value="<?php echo esc_attr($flra_options['vnd_usd_rate']); ?>" id="vnd_usd_rate"
+                                    class="regular-text" />
+                                <small><?php _e('Exchange rate from VNĐ', 'coolbird-vietnam-address-for-woocommerce'); ?></small>
                             </div>
                         </div>
                     </div>
@@ -218,28 +241,34 @@ if ( ! defined( 'ABSPATH' ) ) {
 
                 <div class="vncheckout-card">
                     <div class="vncheckout-card-header">
-                        <h2><?php esc_html_e('Shipping Options', 'vietnam-address-woo'); ?></h2>
-                        <p><?php esc_html_e('Configure shipping method display options.', 'vietnam-address-woo'); ?></p>
+                        <h2><?php esc_html_e('Shipping Options', 'coolbird-vietnam-address-for-woocommerce'); ?></h2>
+                        <p><?php esc_html_e('Configure shipping method display options.', 'coolbird-vietnam-address-for-woocommerce'); ?>
+                        </p>
                     </div>
                     <div class="vncheckout-card-body">
                         <div class="vncheckout-field">
                             <label class="vncheckout-toggle">
-                                <input type="checkbox" name="<?php echo $this->_optionName ?>[remove_methob_title]" <?php checked('1', $flra_options['remove_methob_title']); ?> value="1" id="remove_methob_title" />
+                                <input type="checkbox" name="<?php echo $this->_optionName ?>[remove_methob_title]"
+                                    <?php checked('1', $flra_options['remove_methob_title']); ?> value="1"
+                                    id="remove_methob_title" />
                                 <span class="vncheckout-toggle-slider"></span>
                                 <span class="vncheckout-toggle-label">
-                                    <strong><?php _e('Remove Shipping Title', 'vietnam-address-woo'); ?></strong>
-                                    <small><?php _e('Completely remove shipping method title', 'vietnam-address-woo'); ?></small>
+                                    <strong><?php _e('Remove Shipping Title', 'coolbird-vietnam-address-for-woocommerce'); ?></strong>
+                                    <small><?php _e('Completely remove shipping method title', 'coolbird-vietnam-address-for-woocommerce'); ?></small>
                                 </span>
                             </label>
                         </div>
 
                         <div class="vncheckout-field">
                             <label class="vncheckout-toggle">
-                                <input type="checkbox" name="<?php echo $this->_optionName ?>[freeship_remove_other_methob]" <?php checked('1', $flra_options['freeship_remove_other_methob']); ?> value="1" id="freeship_remove_other_methob" />
+                                <input type="checkbox"
+                                    name="<?php echo $this->_optionName ?>[freeship_remove_other_methob]"
+                                    <?php checked('1', $flra_options['freeship_remove_other_methob']); ?> value="1"
+                                    id="freeship_remove_other_methob" />
                                 <span class="vncheckout-toggle-slider"></span>
                                 <span class="vncheckout-toggle-label">
-                                    <strong><?php _e('Hide Methods When Free Shipping Available', 'vietnam-address-woo'); ?></strong>
-                                    <small><?php _e('Hide all other shipping methods when free shipping is available', 'vietnam-address-woo'); ?></small>
+                                    <strong><?php _e('Hide Methods When Free Shipping Available', 'coolbird-vietnam-address-for-woocommerce'); ?></strong>
+                                    <small><?php _e('Hide all other shipping methods when free shipping is available', 'coolbird-vietnam-address-for-woocommerce'); ?></small>
                                 </span>
                             </label>
                         </div>
@@ -251,39 +280,44 @@ if ( ! defined( 'ABSPATH' ) ) {
             <div id="tab-checkout" class="vncheckout-tab-content">
                 <div class="vncheckout-card">
                     <div class="vncheckout-card-header">
-                        <h2><?php esc_html_e('Alepay & Billing Fields', 'vietnam-address-woo'); ?></h2>
-                        <p><?php esc_html_e('Configure additional billing fields required by Alepay and other gateways.', 'vietnam-address-woo'); ?></p>
+                        <h2><?php esc_html_e('Alepay & Billing Fields', 'coolbird-vietnam-address-for-woocommerce'); ?>
+                        </h2>
+                        <p><?php esc_html_e('Configure additional billing fields required by Alepay and other gateways.', 'coolbird-vietnam-address-for-woocommerce'); ?>
+                        </p>
                     </div>
                     <div class="vncheckout-card-body">
                         <div class="vncheckout-field">
                             <label class="vncheckout-toggle">
-                                <input type="checkbox" name="<?php echo $this->_optionName ?>[enable_firstname]" <?php checked('1', $flra_options['enable_firstname']); ?> value="1" />
+                                <input type="checkbox" name="<?php echo $this->_optionName ?>[enable_firstname]"
+                                    <?php checked('1', $flra_options['enable_firstname']); ?> value="1" />
                                 <span class="vncheckout-toggle-slider"></span>
                                 <span class="vncheckout-toggle-label">
-                                    <strong><?php _e('Show First Name Field', 'vietnam-address-woo'); ?></strong>
-                                    <small><?php _e('Required for Alepay payment.', 'vietnam-address-woo'); ?></small>
+                                    <strong><?php _e('Show First Name Field', 'coolbird-vietnam-address-for-woocommerce'); ?></strong>
+                                    <small><?php _e('Required for Alepay payment.', 'coolbird-vietnam-address-for-woocommerce'); ?></small>
                                 </span>
                             </label>
                         </div>
 
                         <div class="vncheckout-field">
                             <label class="vncheckout-toggle">
-                                <input type="checkbox" name="<?php echo $this->_optionName ?>[enable_country]" <?php checked('1', $flra_options['enable_country']); ?> value="1" />
+                                <input type="checkbox" name="<?php echo $this->_optionName ?>[enable_country]"
+                                    <?php checked('1', $flra_options['enable_country']); ?> value="1" />
                                 <span class="vncheckout-toggle-slider"></span>
                                 <span class="vncheckout-toggle-label">
-                                    <strong><?php _e('Show Country Field', 'vietnam-address-woo'); ?></strong>
-                                    <small><?php _e('Required for Alepay payment.', 'vietnam-address-woo'); ?></small>
+                                    <strong><?php _e('Show Country Field', 'coolbird-vietnam-address-for-woocommerce'); ?></strong>
+                                    <small><?php _e('Required for Alepay payment.', 'coolbird-vietnam-address-for-woocommerce'); ?></small>
                                 </span>
                             </label>
                         </div>
 
                         <div class="vncheckout-field">
                             <label class="vncheckout-toggle">
-                                <input type="checkbox" name="<?php echo $this->_optionName ?>[enable_postcode]" <?php checked('1', $flra_options['enable_postcode']); ?> value="1" />
+                                <input type="checkbox" name="<?php echo $this->_optionName ?>[enable_postcode]"
+                                    <?php checked('1', $flra_options['enable_postcode']); ?> value="1" />
                                 <span class="vncheckout-toggle-slider"></span>
                                 <span class="vncheckout-toggle-label">
-                                    <strong><?php _e('Show Postcode Field', 'vietnam-address-woo'); ?></strong>
-                                    <small><?php _e('Required for Alepay Tokenization payment.', 'vietnam-address-woo'); ?></small>
+                                    <strong><?php _e('Show Postcode Field', 'coolbird-vietnam-address-for-woocommerce'); ?></strong>
+                                    <small><?php _e('Required for Alepay Tokenization payment.', 'coolbird-vietnam-address-for-woocommerce'); ?></small>
                                 </span>
                             </label>
                         </div>
@@ -295,17 +329,19 @@ if ( ! defined( 'ABSPATH' ) ) {
             <div id="tab-orders" class="vncheckout-tab-content">
                 <div class="vncheckout-card">
                     <div class="vncheckout-card-header">
-                        <h2><?php esc_html_e('Order Management', 'vietnam-address-woo'); ?></h2>
-                        <p><?php esc_html_e('Extra filters for quickly finding orders by province and date.', 'vietnam-address-woo'); ?></p>
+                        <h2><?php esc_html_e('Order Management', 'coolbird-vietnam-address-for-woocommerce'); ?></h2>
+                        <p><?php esc_html_e('Extra filters for quickly finding orders by province and date.', 'coolbird-vietnam-address-for-woocommerce'); ?>
+                        </p>
                     </div>
                     <div class="vncheckout-card-body">
                         <div class="vncheckout-field">
                             <label class="vncheckout-toggle">
-                                <input type="checkbox" name="<?php echo $this->_optionName ?>[active_filter_order]" <?php checked('1', $flra_options['active_filter_order']); ?> value="1" />
+                                <input type="checkbox" name="<?php echo $this->_optionName ?>[active_filter_order]"
+                                    <?php checked('1', $flra_options['active_filter_order']); ?> value="1" />
                                 <span class="vncheckout-toggle-slider"></span>
                                 <span class="vncheckout-toggle-label">
-                                    <strong><?php _e('Enable Order Filter', 'vietnam-address-woo'); ?></strong>
-                                    <small><?php _e('Enable filter by province and date in order list page', 'vietnam-address-woo'); ?></small>
+                                    <strong><?php _e('Enable Order Filter', 'coolbird-vietnam-address-for-woocommerce'); ?></strong>
+                                    <small><?php _e('Enable filter by province and date in order list page', 'coolbird-vietnam-address-for-woocommerce'); ?></small>
                                 </span>
                             </label>
                         </div>
@@ -317,7 +353,7 @@ if ( ! defined( 'ABSPATH' ) ) {
             <?php do_settings_sections($this->_optionGroup, 'default'); ?>
 
             <div class="vncheckout-submit">
-                <?php submit_button(__('Save Changes', 'vietnam-address-woo'), 'primary vncheckout-btn-primary', 'save_vncheckout_settings', false); ?>
+                <?php submit_button(__('Save Changes', 'coolbird-vietnam-address-for-woocommerce'), 'primary vncheckout-btn-primary', 'save_vncheckout_settings', false); ?>
             </div>
         </form>
     </div>
@@ -410,8 +446,15 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 @keyframes fadeIn {
-    from { opacity: 0; transform: translateY(10px); }
-    to { opacity: 1; transform: translateY(0); }
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
 /* Cards */
@@ -456,7 +499,7 @@ if ( ! defined( 'ABSPATH' ) ) {
     margin-bottom: 0;
 }
 
-.vncheckout-field > label:not(.vncheckout-toggle):not(.vncheckout-radio) {
+.vncheckout-field>label:not(.vncheckout-toggle):not(.vncheckout-radio) {
     display: block;
     font-weight: 500;
     color: var(--vn-text);
@@ -544,14 +587,14 @@ if ( ! defined( 'ABSPATH' ) ) {
     top: 3px;
     left: 3px;
     transition: transform 0.2s;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 }
 
-.vncheckout-toggle input:checked + .vncheckout-toggle-slider {
+.vncheckout-toggle input:checked+.vncheckout-toggle-slider {
     background: var(--vn-primary);
 }
 
-.vncheckout-toggle input:checked + .vncheckout-toggle-slider::before {
+.vncheckout-toggle input:checked+.vncheckout-toggle-slider::before {
     transform: translateX(20px);
 }
 

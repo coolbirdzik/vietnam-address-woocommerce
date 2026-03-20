@@ -1,9 +1,9 @@
-import React from 'react';
-import ReactDOM from 'react-dom/client';
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-import { ShippingRateManager } from './components/admin/ShippingRateManager';
-import type { Province } from './types/address.types';
-import type { Region } from './types/shipping.types';
+import React from "react";
+import ReactDOM from "react-dom/client";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { ShippingRateManager } from "./components/admin/ShippingRateManager";
+import type { Province } from "./types/address.types";
+import type { Region } from "./types/shipping.types";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -15,11 +15,11 @@ const queryClient = new QueryClient({
 });
 
 const AdminShippingApp: React.FC = () => {
-  const data = window.woocommerce_district_admin;
+  const data = window.coolbirdvik_district_admin;
 
   const provinces: Province[] = React.useMemo(
     () => (data?.provinces as unknown as Province[]) || [],
-    [data]
+    [data],
   );
 
   // Regions are seeded on the PHP side and also fetched dynamically via React Query.
@@ -28,7 +28,7 @@ const AdminShippingApp: React.FC = () => {
   React.useEffect(() => {
     const initialRegions = (data?.regions as unknown as Region[]) || [];
     if (initialRegions.length) {
-      queryClient.setQueryData(['regions', 'list'], initialRegions);
+      queryClient.setQueryData(["regions", "list"], initialRegions);
     }
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
@@ -36,19 +36,19 @@ const AdminShippingApp: React.FC = () => {
 };
 
 const mount = () => {
-  const container = document.getElementById('coolbirdzik-admin-shipping-app');
+  const container = document.getElementById("coolbirdzik-admin-shipping-app");
   if (!container) return;
   ReactDOM.createRoot(container).render(
     <React.StrictMode>
       <QueryClientProvider client={queryClient}>
         <AdminShippingApp />
       </QueryClientProvider>
-    </React.StrictMode>
+    </React.StrictMode>,
   );
 };
 
-if (document.readyState === 'loading') {
-  document.addEventListener('DOMContentLoaded', mount);
+if (document.readyState === "loading") {
+  document.addEventListener("DOMContentLoaded", mount);
 } else {
   mount();
 }

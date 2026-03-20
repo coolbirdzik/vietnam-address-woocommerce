@@ -1,7 +1,7 @@
 // Global type declarations for WordPress/jQuery environment
 
-import type { Province } from './address.types';
-import type { Region } from './shipping.types';
+import type { Province } from "./address.types";
+import type { Region } from "./shipping.types";
 
 declare global {
   interface Window {
@@ -24,7 +24,7 @@ declare global {
       preloaded_names?: Record<string, string>;
       [key: string]: unknown;
     };
-    woocommerce_district_admin?: {
+    coolbirdvik_district_admin?: {
       ajaxurl?: string;
       nonce?: string;
       provinces?: Province[];

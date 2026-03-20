@@ -1,8 +1,8 @@
-import React from 'react';
-import ReactDOM from 'react-dom/client';
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-import { OrderAddressEditor } from './components/admin/OrderAddressEditor';
-import type { Province } from './types/address.types';
+import React from "react";
+import ReactDOM from "react-dom/client";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { OrderAddressEditor } from "./components/admin/OrderAddressEditor";
+import type { Province } from "./types/address.types";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -17,19 +17,22 @@ const queryClient = new QueryClient({
 const AdminOrderApp: React.FC = () => {
   // Get provinces and initial values from localized data
   const provinces: Province[] = React.useMemo(() => {
-    if (window.woocommerce_district_admin && (window.woocommerce_district_admin as any).provinces) {
-      return (window.woocommerce_district_admin as any).provinces;
+    if (
+      window.coolbirdvik_district_admin &&
+      (window.coolbirdvik_district_admin as any).provinces
+    ) {
+      return (window.coolbirdvik_district_admin as any).provinces;
     }
     return [];
   }, []);
 
   const initialValues = React.useMemo(() => {
-    const getData = window.woocommerce_district_admin as any;
+    const getData = window.coolbirdvik_district_admin as any;
     return {
-      billingState: getData?.billing_state || '',
-      billingCity: getData?.billing_city || '',
-      shippingState: getData?.shipping_state || '',
-      shippingCity: getData?.shipping_city || '',
+      billingState: getData?.billing_state || "",
+      billingCity: getData?.billing_city || "",
+      shippingState: getData?.shipping_state || "",
+      shippingCity: getData?.shipping_city || "",
     };
   }, []);
 
@@ -46,7 +49,7 @@ const AdminOrderApp: React.FC = () => {
 
 // Mount the app
 const mountAdminOrderApp = () => {
-  const container = document.getElementById('coolbirdzik-admin-order-app');
+  const container = document.getElementById("coolbirdzik-admin-order-app");
   if (container) {
     const root = ReactDOM.createRoot(container);
     root.render(
@@ -54,14 +57,14 @@ const mountAdminOrderApp = () => {
         <QueryClientProvider client={queryClient}>
           <AdminOrderApp />
         </QueryClientProvider>
-      </React.StrictMode>
+      </React.StrictMode>,
     );
   }
 };
 
 // Initialize when DOM is ready
-if (document.readyState === 'loading') {
-  document.addEventListener('DOMContentLoaded', mountAdminOrderApp);
+if (document.readyState === "loading") {
+  document.addEventListener("DOMContentLoaded", mountAdminOrderApp);
 } else {
   mountAdminOrderApp();
 }

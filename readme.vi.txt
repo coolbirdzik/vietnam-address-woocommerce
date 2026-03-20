@@ -1,6 +1,6 @@
-=== Vietnam Address Woo ===
-Contributors: coolbirdzik
-Donate link: https://github.com/coolbirdzik/vietnam-address-woo
+=== Coolbird Vietnam Address for WooCommerce ===
+Contributors: coolbird
+Donate link: https://github.com/coolbirdzik/coolbird-vietnam-address-for-woocommerce
 Tags: woocommerce, vietnam, checkout, address
 Requires at least: 5.0
 Tested up to: 6.9
@@ -56,6 +56,6 @@ Không. Dữ liệu lưu trong mảng PHP, không truy vấn database.
 
 == Thông tin thêm =
 
-- GitHub: https://github.com/coolbirdzik/vietnam-address-woo
+- GitHub: https://github.com/coolbirdzik/coolbird-vietnam-address-for-woocommerce
 - Phát triển bởi: Nguyễn Tấn Hưng
 - Không gửi dữ liệu khách hàng ra bên ngoài

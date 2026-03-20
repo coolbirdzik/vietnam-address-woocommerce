@@ -1,4 +1,4 @@
-# Vietnam Address Woo
+# Coolbird Vietnam Address for WooCommerce
 
 <div align="right">
   <a href="README.vi.md">🇻🇳 Tiếng Việt</a>
@@ -43,11 +43,11 @@ Woocommerce plugin optimized for the Vietnamese market with Province/City, Distr
 
 ## Requirements
 
-| Software | Version |
-|----------|---------|
-| WordPress | 5.0+ |
-| WooCommerce | 8.0+ |
-| PHP | 7.4+ |
+| Software    | Version |
+| ----------- | ------- |
+| WordPress   | 5.0+    |
+| WooCommerce | 8.0+    |
+| PHP         | 7.4+    |
 
 ---
 

@@ -169,3 +169,10 @@ yarn-error.log*
 .cache/
 
 *.zip
+
+# Claude AI settings (local dev, do not commit)
+.claude/
+
+# Build and deployment scripts (local dev only)
+build-and-install.sh
+retag.sh
