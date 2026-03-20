@@ -20,7 +20,7 @@ printf "${GREEN}========================================${NC}\n"
 printf "\n"
 
 # Get plugin version from main file and strip whitespace
-VERSION=$(grep -m 1 "Version:" vietnam-address-woo.php | awk '{print $3}' | tr -d '\r\n')
+VERSION=$(grep -m 1 "Version:" coolbird-vietnam-address.php | awk '{print $3}' | tr -d '\r\n')
 printf "${BLUE}Plugin version: ${VERSION}${NC}\n"
 printf "\n"
 
@@ -49,8 +49,8 @@ fi
 # Step 2: Clean up previous builds
 printf "${YELLOW}[2/4] Cleaning up...${NC}\n"
 rm -rf dist build-temp
-rm -f vietnam-address-woo.zip vietnam-address-woo-*.zip
-mkdir -p dist/vietnam-address-woo
+rm -f coolbird-vietnam-address.zip coolbird-vietnam-address-*.zip
+mkdir -p dist/coolbird-vietnam-address
 printf "${GREEN}✓ Cleaned${NC}\n"
 printf "\n"
 
@@ -58,21 +58,21 @@ printf "\n"
 printf "${YELLOW}[3/4] Copying plugin files...${NC}\n"
 
 # Main files
-cp vietnam-address-woo.php dist/vietnam-address-woo/
-cp get-address.php dist/vietnam-address-woo/
-cp readme.txt dist/vietnam-address-woo/
-cp license.txt dist/vietnam-address-woo/
+cp coolbird-vietnam-address.php dist/coolbird-vietnam-address/
+cp get-address.php dist/coolbird-vietnam-address/
+cp readme.txt dist/coolbird-vietnam-address/
+cp license.txt dist/coolbird-vietnam-address/
 
 # Directories
-cp -r includes dist/vietnam-address-woo/
-cp -r cities dist/vietnam-address-woo/
-cp -r i18n dist/vietnam-address-woo/
-cp -r languages dist/vietnam-address-woo/
+cp -r includes dist/coolbird-vietnam-address/
+cp -r cities dist/coolbird-vietnam-address/
+cp -r i18n dist/coolbird-vietnam-address/
+cp -r languages dist/coolbird-vietnam-address/
 
 # Copy built frontend (assets/dist folder)
-mkdir -p dist/vietnam-address-woo/assets
+mkdir -p dist/coolbird-vietnam-address/assets
 if [ -d "assets/dist" ]; then
-    cp -r assets/dist dist/vietnam-address-woo/assets/
+    cp -r assets/dist dist/coolbird-vietnam-address/assets/
     printf "${GREEN}✓ React bundles included${NC}\n"
 else
     printf "${RED}✗ Error: Frontend build not found${NC}\n"
@@ -81,10 +81,10 @@ else
 fi
 
 # Clean up unnecessary files
-find dist/vietnam-address-woo -name ".DS_Store" -delete
-find dist/vietnam-address-woo -name "*.log" -delete
-find dist/vietnam-address-woo -name ".git*" -delete
-find dist/vietnam-address-woo -name "node_modules" -type d -exec rm -rf {} + 2>/dev/null || true
+find dist/coolbird-vietnam-address -name ".DS_Store" -delete
+find dist/coolbird-vietnam-address -name "*.log" -delete
+find dist/coolbird-vietnam-address -name ".git*" -delete
+find dist/coolbird-vietnam-address -name "node_modules" -type d -exec rm -rf {} + 2>/dev/null || true
 
 printf "${GREEN}✓ Files copied${NC}\n"
 printf "\n"
@@ -92,18 +92,18 @@ printf "\n"
 # Step 4: Create ZIP file
 printf "${YELLOW}[4/4] Creating ZIP archive...${NC}\n"
 cd dist
-zip -r "vietnam-address-woo-${VERSION}.zip" vietnam-address-woo -q
+zip -r "coolbird-vietnam-address-${VERSION}.zip" coolbird-vietnam-address -q
 cd ..
 
 # Display result
-if [ -f "dist/vietnam-address-woo-${VERSION}.zip" ]; then
-    FILE_SIZE=$(du -h "dist/vietnam-address-woo-${VERSION}.zip" | cut -f1)
+if [ -f "dist/coolbird-vietnam-address-${VERSION}.zip" ]; then
+    FILE_SIZE=$(du -h "dist/coolbird-vietnam-address-${VERSION}.zip" | cut -f1)
     printf "\n"
     printf "${GREEN}========================================${NC}\n"
     printf "${GREEN}✓ BUILD SUCCESS!${NC}\n"
     printf "${GREEN}========================================${NC}\n"
     printf "\n"
-    printf "File: ${GREEN}dist/vietnam-address-woo-${VERSION}.zip${NC}\n"
+    printf "File: ${GREEN}dist/coolbird-vietnam-address-${VERSION}.zip${NC}\n"
     printf "Size: ${GREEN}${FILE_SIZE}${NC}\n"
     printf "Version: ${GREEN}${VERSION}${NC}\n"
     printf "\n"
